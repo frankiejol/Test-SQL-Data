@@ -7,12 +7,6 @@ use warnings;
 use version;
 our $VERSION='0.0.5';
 
-# 0.0.1 : initial
-# 0.0.2 : config file
-# 0.0.3 : match tables
-# 0.0.4 : run from sql file one statement each time to run on older sqlites
-# 0.0.5 : manual config file
-
 =head1 NAME
 
 Test::SQL::Data - Helps running SQL tests: database preparing and result matching
@@ -29,6 +23,8 @@ use YAML qw(LoadFile);
 
 our ($DIR_DB) = $0;
 $DIR_DB =~ s{(.*)/.*}{$1/db};
+
+=pod
 
 =head1 SYNOPSYS
 
