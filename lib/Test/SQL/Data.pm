@@ -128,6 +128,7 @@ sub _requires {
     my $require = shift;
     SKIP: {
         eval {
+            # TODO: DBIx::Connector should be optional
             require DBIx::Connector;
             require DBD::SQLite;
             if ($require) {
