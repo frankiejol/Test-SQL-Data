@@ -19,7 +19,7 @@ if ( -e $Test::SQL::Data::DIR_DB ) {
 }
 ok !( -e $Test::SQL::Data::DIR_DB );
 
-my $test_sql = Test::SQL::Data->new();
+my $test_sql = Test::SQL::Data->new() or exit;
 
 ok($test_sql->connect());
 ok(!-e $test_sql->file_db());

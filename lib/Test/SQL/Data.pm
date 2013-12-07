@@ -24,6 +24,8 @@ use YAML qw(LoadFile);
 our ($DIR_DB) = $0;
 $DIR_DB =~ s{(.*)/.*}{$1/db};
 
+_requires();
+
 =pod
 
 =head1 SYNOPSYS
@@ -107,7 +109,7 @@ See Test Configuration bellow to learn how to easily pre-load SQL data in the em
 sub new {
     my $class =shift;
     my %args = @_;
-    _requires($args{require});
+    _requires($args{require}) or return;
     my $self = {};
     bless $self,$class;
     $self->{file_db} = _init_file_db();
@@ -144,7 +146,7 @@ sub _requires {
             return ;
         }
     }
-
+    return 1;
 }
 
 sub _auto_load_sql {
