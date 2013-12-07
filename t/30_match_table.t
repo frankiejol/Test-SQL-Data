@@ -1,7 +1,7 @@
 use warnings;
 use strict;
 
-use Test::More tests => 18;
+use Test::More;
 
 use_ok('Test::SQL::Data');
 
@@ -73,3 +73,4 @@ eval {$test_sql->dbh->do("DROP TABLE expected_something;")};
 eval { $test_sql->match_table('something','expected_something.sql') };
 ok($@ && $@ =~ /Table something, Row 1.name found= '<undef>', expected= 'bar'/, $@);
 
+done_testing(18);

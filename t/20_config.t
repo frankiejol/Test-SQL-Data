@@ -1,7 +1,7 @@
 use warnings;
 use strict;
 
-use Test::More tests => 4;
+use Test::More;
 
 use_ok('Test::SQL::Data');
 
@@ -22,3 +22,4 @@ ok(defined $ca && $ca == 35);
 
 ok( -e $test_sql->file_db);
 
+done_testing(4);
