@@ -14,7 +14,7 @@ Test::SQL::Data - Helps running SQL tests: database preparing and result matchin
 
     my $dbh = $test->dbh();
 
-    My::Module->run_something( dbh => $dbh );
+    $My::Module->run_something( dbh => $dbh );
 
     $n_matches = $test->match_table('tablename','expected_tablename.sql');
 
@@ -40,7 +40,7 @@ The database contents are not removed after the test, so you can inspect the res
 
 ## Database test connection
 
-After the creation of the database at the construction of the test, you are given a connection to the test database. Both DBI and DBIx::Connector object is available and you have to use it to call to the module you want to test.
+After the creation of the database at the construction of the test, you are given a connection to the test database. Both DBI and DBIx::Connector object are available and you have to use one of them to call to the module you want to test.
 
 ## Table matching
 
@@ -50,7 +50,8 @@ At the end of the test you must call _done\_testing_ from Test::More with the nu
 
 ## REQUIREMENTS
 
-- DBD::SQL
+- DBD::SQLite
+- DBIx::Connector
 - Test::More
 
 # CONSTRUCTOR
@@ -82,7 +83,7 @@ Connects to database. It is not necessary to do this. It is executed at new().
 
 ## sql
 
-Runs SQL.
+Runs SQL in the internal test database.
 
     $test_sql->sql('CREATE TABLE a (field_one int, ... )');
 
@@ -109,7 +110,7 @@ Returns the current DBIx::Connector
 
 ## match\_table
 
-Matches all the fields and rows of a table with an expected SQL data. The SQL file must have the tablename with the prefix expected, and a number of inserts to match against:
+Matches all the fields and rows of a table with an expected SQL data. The SQL file must have the tablename with the prefix expected, and insert statements as rows to match against:
 
 ### parameters
 
@@ -126,7 +127,7 @@ number of ok matches
     CREATE TABLE(expected_something) ( id integer, name char(10) );
     INSERT INTO expected_something VALUES( 3,'foo' );
 
-This will try to match the same rows in the table something and it will return a 2 if succeded.
+This will try to match the same rows in the table something and it will return a 2 if succeded. That comes from number\_of\_rows\*number\_of\_fields.
 One way to generate those files is using the .dump command in sqlite and then edit the output:
 
     sqlite t/db/something.db .dump > t/etc/expected_something.sql
