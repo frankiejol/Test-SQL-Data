@@ -59,7 +59,7 @@ The database contents are not removed after the test, so you can inspect the res
 
 =head2 Database test connection
 
-After the creation of the database at the construction of the test, you are given a connection to the test database. Both DBI and DBIx::Connector object is available and you have to use it to call to the module you want to test.
+After the creation of the database at the construction of the test, you are given a connection to the test database. Both DBI and DBIx::Connector object are available and you have to use one of them to call to the module you want to test.
 
 =head2 Table matching
 
@@ -73,7 +73,11 @@ At the end of the test you must call I<done_testing> from Test::More with the nu
 
 =item *
 
-DBD::SQL
+DBD::SQLite
+
+=item *
+
+DBIx::Connector
 
 =item *
 
@@ -246,7 +250,7 @@ sub connect {
 
 =head2 sql
 
-Runs SQL.
+Runs SQL in the internal test database.
 
     $test_sql->sql('CREATE TABLE a (field_one int, ... )');
 
@@ -293,7 +297,6 @@ sub load_sql_file {
             $sql = '';
         }
     }
-#    my $sql = join "",<$h_sql>;
     close $h_sql;
 
 }
@@ -337,7 +340,7 @@ sub connector {
 
 =head2 match_table
 
-Matches all the fields and rows of a table with an expected SQL data. The SQL file must have the tablename with the prefix expected, and a number of inserts to match against:
+Matches all the fields and rows of a table with an expected SQL data. The SQL file must have the tablename with the prefix expected, and insert statements as rows to match against:
 
 =head3 parameters
 
@@ -365,7 +368,7 @@ number of ok matches
     CREATE TABLE(expected_something) ( id integer, name char(10) );
     INSERT INTO expected_something VALUES( 3,'foo' );
 
-This will try to match the same rows in the table something and it will return a 2 if succeded.
+This will try to match the same rows in the table something and it will return a 2 if succeded. That comes from number_of_rows*number_of_fields.
 One way to generate those files is using the .dump command in sqlite and then edit the output:
 
     sqlite t/db/something.db .dump > t/etc/expected_something.sql
