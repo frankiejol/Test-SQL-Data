@@ -11,10 +11,6 @@ our $VERSION='0.0.5';
 
 Test::SQL::Data - Helps running SQL tests: database preparing and result matching
 
-=head1 VERSION
-
-version 0.0.2
-
 =cut
 
 use Carp qw(confess croak);
@@ -40,7 +36,7 @@ _requires();
 
   my $dbh = $test->dbh();
 
-  My::Module->run_something( dbh => $dbh );
+  $My::Module->run_something( dbh => $dbh );
 
   $n_matches = $test->match_table('tablename','expected_tablename.sql');
 
