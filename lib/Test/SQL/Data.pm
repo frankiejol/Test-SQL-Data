@@ -34,9 +34,7 @@ _requires();
   use_ok('My::Module');
   my $n_matches = 1;
 
-  my $dbh = $test->dbh();
-
-  $My::Module->run_something( dbh => $dbh );
+  $My::Module->run_something( dbh => $test->dbh );
 
   $n_matches = $test->match_table('tablename','expected_tablename.sql');
 
