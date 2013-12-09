@@ -12,11 +12,9 @@ Test::SQL::Data - Helps running SQL tests: database preparing and result matchin
     use_ok('My::Module');
     my $n_matches = 1;
 
-    my $dbh = $test->dbh();
+    $My::Module->run_something( dbh => $test->dbh );
 
-    $My::Module->run_something( dbh => $dbh );
-
-    $n_matches = $test->match_table('tablename','expected_tablename.sql');
+    $n_matches += $test->match_table('tablename','expected_tablename.sql');
 
     done_testing($n_matches);
 
