@@ -36,7 +36,7 @@ _requires();
 
   $My::Module->run_something( dbh => $test->dbh );
 
-  $n_matches = $test->match_table('tablename','expected_tablename.sql');
+  $n_matches += $test->match_table('tablename','expected_tablename.sql');
 
   done_testing($n_matches);
 
