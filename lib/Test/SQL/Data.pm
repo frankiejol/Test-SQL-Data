@@ -14,11 +14,13 @@ Test::SQL::Data - Helps running SQL tests: database preparing and result matchin
 =cut
 
 use Carp qw(confess croak);
+use File::Path qw(mkpath);
 use Test::More;
 use YAML qw(LoadFile);
 
 our ($DIR_DB) = $0;
-$DIR_DB =~ s{(.*)/.*}{$1/db};
+$DIR_DB =~ s{(t)/(.*)/.*}{$1/.db/$2};
+$DIR_DB =~ s{(t)/.*}{$1/.db} if !defined $2;
 
 _requires();
 
@@ -208,7 +210,7 @@ sub _init_file_db {
     if (! $file_db ) {
         $file_db = $0;
         $file_db =~ s{.*/(.*)\.\w+$}{$DIR_DB/$1\.db};
-        mkdir $DIR_DB or die "$! '$DIR_DB'" if ! -d $DIR_DB;
+        mkpath $DIR_DB or die "$! '$DIR_DB'" if ! -d $DIR_DB;
     }
     if ( -e $file_db ) {
         unlink $file_db or BAIL_OUT("$! $file_db");
@@ -442,6 +444,17 @@ sub match_table {
         }
     }
     return $n_ok;
+}
+
+=head2 dir_db
+
+Returns the directory where it saves the temporary database
+
+=cut
+
+
+sub dir_db {
+    return $DIR_DB;
 }
 
 1;

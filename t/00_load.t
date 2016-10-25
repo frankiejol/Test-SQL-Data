@@ -1,6 +1,7 @@
 use warnings;
 use strict;
 
+use File::Path qw(rmtree);
 use Test::More;
 
 use_ok('Test::SQL::Data');
@@ -15,7 +16,7 @@ if ( -e $Test::SQL::Data::DIR_DB ) {
            }
         close $dir_db;
     }
-    rmdir $Test::SQL::Data::DIR_DB or die "$! $Test::SQL::Data::DIR_DB";
+    rmtree $Test::SQL::Data::DIR_DB or die "$! $Test::SQL::Data::DIR_DB";
 }
 ok !( -e $Test::SQL::Data::DIR_DB );
 

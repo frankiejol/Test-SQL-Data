@@ -21,7 +21,8 @@ my %WriteMakefileArgs = (
   "NAME" => "Test::SQL::Data",
   "PREREQ_PM" => {
     "DBD::SQLite" => "1.20",
-    "DBIx::Connector" => "0.4.5"
+    "DBIx::Connector" => "0.4.5",
+    "File::Path" => 0
   },
   "TEST_REQUIRES" => {},
   "VERSION" => "0.0.5",
