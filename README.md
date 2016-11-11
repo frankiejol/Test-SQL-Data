@@ -167,6 +167,14 @@ Contents of MySQL tables can be dumped and used for the tests. After the dump, y
 
     $ mysqldump --compatible=ansi --skip-extended-insert --compact database table
 
+There are tools to convert from MySQL to SQLite, like https://github.com/dumblob/mysql2sqlite.
+This is how to convert in 2 steps:
+
+    $ mysqldump --compatible=ansi --skip-extended-insert --compact database table >table.my.sql
+    $ mysql2sqlite table.mysql.sql | egrep -v "(^PRAGMA|TRANSACTION)" > table.lite.sql
+
+    
+
 ### Manual Changes
 
 - Auto Increment field: id\_foo integer primary key autoincrement
